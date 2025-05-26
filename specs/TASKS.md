@@ -33,29 +33,29 @@
   ```
 
 ### Streamlined Testing - Phase 1
-- [ ] Create simplified test structure:
+- [X] Create simplified test structure:
   - `tests/unit/` (core function verification)
   - `tests/integration/` (component interactions)
   - `tests/smoke/` (quick pipeline verification)
   - **Testing Philosophy:** Focus on critical path, not exhaustive coverage
-- [ ] Create basic `conftest.py` with lightweight fixtures
+- [X] Create basic `conftest.py` with lightweight fixtures
   - **Efficiency:** Minimal setup, maximum utility
-- [ ] Write smoke test for project setup verification
+- [X] Write smoke test for project setup verification
   - **Business Value:** Ensure development environment works correctly
 
 ## Phase 2: Data Acquisition and Understanding
-- [ ] Implement SQLite database connection with clear error handling
+- [X] Implement SQLite database connection with clear error handling
   - **Input:** `data/bmarket.db` (provided database)
   - **Business Value:** Reliable data access for marketing analysis
   - **Output:** `src/data/data_loader.py` with robust connection handling
-- [ ] Create data loader with explicit data source documentation
+- [X] Create data loader with explicit data source documentation
   - **Data Pipeline:** Clear indication that source is `bmarket.db`
   - **AI Context:** Well-documented functions for AI understanding
-- [ ] Load banking dataset and create initial data snapshot
+- [X] Load banking dataset and create initial data snapshot
   - **Input:** SQLite database queries
   - **Output:** `data/raw/initial_dataset.csv` (for reference and backup)
   - **Business Value:** Baseline dataset for marketing campaign optimization
-- [ ] Comprehensive EDA in Jupyter Notebook (`eda.ipynb`):
+- [ ] Comprehensive EDA (`eda.py`):
   - **Data Source Documentation:** Clear headers indicating `bmarket.db` as source
   - **Business Focus:** Analysis directly tied to term deposit subscription prediction
   - **Key Sections:**
@@ -64,76 +64,199 @@
     - Feature relationships to business outcomes
     - Data quality issues and their business impact
     - Actionable insights for model development
-  - **Output:** Complete `eda.ipynb` with business-relevant insights
+  - **Output:** Complete `eda.py` with business-relevant insights.
+  - **Output:** Report from `eda.py` with findings, insights and recommendations for Phase 3.
+- [ ] Manual creation of EDA in Jupyter Notebook (`eda.ipynb`) from interactive exploration
 
 ### Streamlined Testing - Phase 2
-- [ ] Create lightweight test fixtures in `conftest.py`
+- [X] Create lightweight test fixtures in `conftest.py`
   - **Efficiency:** Small sample datasets (< 100 rows) for fast testing
-- [ ] Write essential data validation tests:
-  - **Smoke Test:** Database connection works
-  - **Data Validation:** Expected columns and basic statistics
-  - **Sanity Check:** Data types and value ranges
+  - **Implementation:** Added `small_sample_dataframe`, `expected_columns`, `expected_data_types`, `data_validation_rules` fixtures
+- [X] Write essential data validation tests:
+  - **Smoke Test:** Database connection works ✅
+  - **Data Validation:** Expected columns and basic statistics ✅
+  - **Sanity Check:** Data types and value ranges ✅
   - **Testing Philosophy:** Quick verification, not exhaustive validation
+  - **Files:** `tests/unit/test_data_validation.py`, `tests/smoke/test_phase2_validation.py`
+  - **Results:** 25/25 tests passed in 0.09 seconds
 
 ## Phase 3: Data Cleaning and Preprocessing
-- [ ] Create data cleaning module with clear business rationale
-  - **Input:** `data/raw/initial_dataset.csv`
-  - **Output:** `data/processed/cleaned_data.csv`
-  - **Business Value:** Clean data improves model reliability for marketing decisions
-- [ ] Handle missing values with business-justified approaches:
-  - **Housing/Personal Loans (NULLs):** Create 'Information Not Available' category
-  - **'Unknown' values:** Retain as distinct business category (real customer state)
-  - **Business Rationale:** Preserve information that may indicate customer behavior patterns
-- [ ] Handle data quality issues:
-  - **Age conversion:** TEXT to numeric (critical for demographic analysis)
-  - **Contact Method standardization:** Resolve 'Cell'/'cellular' inconsistencies
-  - **Outlier treatment:** Cap extreme campaign call values (business realistic limits)
-  - **Special values:** Handle 999 in Previous Contact Days as 'no previous contact'
-- [ ] Implement data validation with business rules:
-  - Age within reasonable bounds (18-100)
-  - Campaign calls within operational limits
-  - Subscription status properly encoded
-- [ ] **Data Pipeline Documentation:**
+*Based on EDA findings: 28,935 missing values, 12,008 special values requiring cleaning*
+**Output:** `data/processed/cleaned-db.csv` (cleaned dataset ready for feature engineering)
+
+### 3.1 Critical Data Quality Issues (EDA Priority 1)
+- [ ] **Age Data Type Conversion (CRITICAL)**
+  - **Issue:** Age stored as text format ('57 years', '55 years', etc.)
+  - **Input:** Text-formatted age column from raw data
+  - **Output:** Numeric age values (18-100 range)
+  - **Implementation:** Extract numeric values using regex patterns
+  - **Business Value:** Enable demographic analysis and age-based segmentation
+  - **Validation:** Ensure all ages fall within 18-100 years range
+
+- [ ] **Missing Values Handling Strategy (28,935 total missing)**
+  - **Housing Loan (24,789 missing - 60.2%):** Implement domain-specific imputation
+    - Create 'Information Not Available' category for business analysis
+    - Consider creating missing indicator flag for model features
+  - **Personal Loan (4,146 missing - 10.1%):** Apply consistent imputation strategy
+    - Align with Housing Loan approach for consistency
+  - **Business Rationale:** Preserve information patterns that may indicate customer behavior
+
+- [ ] **Special Values Cleaning (12,008 total requiring attention)**
+  - **'Unknown' Categories by Priority:**
+    - Credit Default: 8,597 unknown values (20.9%) - HIGH PRIORITY
+    - Education Level: 1,731 unknown values (4.2%) - MEDIUM PRIORITY
+    - Personal Loan: 877 unknown values (2.1%) - MEDIUM PRIORITY
+    - Housing Loan: 393 unknown values (1.0%) - LOW PRIORITY
+    - Occupation: 330 unknown values (0.8%) - LOW PRIORITY
+    - Marital Status: 80 unknown values (0.2%) - LOW PRIORITY
+  - **Strategy:** Retain as distinct business category (real customer information state)
+  - **Implementation:** Create consistent 'unknown' handling across all categorical features
+
+### 3.2 Data Standardization and Consistency (EDA Priority 2)
+- [ ] **Contact Method Standardization**
+  - **Issue:** Inconsistent contact method values ('Cell' vs 'cellular', 'Telephone' vs 'telephone')
+  - **Current Distribution:** Cell: 31.8%, cellular: 31.7%, Telephone: 18.4%, telephone: 18.1%
+  - **Implementation:** Standardize to consistent casing and terminology
+  - **Business Value:** Accurate contact channel analysis for campaign optimization
+
+- [ ] **Previous Contact Days Special Value Handling**
+  - **Issue:** 39,673 rows (96.3%) have '999' indicating no previous contact
+  - **Implementation:** Create 'No Previous Contact' binary flag
+  - **Feature Engineering:** Convert 999 to meaningful business indicator
+  - **Business Value:** Clear distinction between contacted and new prospects
+
+- [ ] **Target Variable Binary Encoding**
+  - **Current:** Text values ('yes', 'no') for Subscription Status
+  - **Required:** Binary encoding (1=yes, 0=no) for model compatibility
+  - **Validation:** Ensure consistent encoding across entire dataset
+  - **Business Value:** Standardized target for prediction models
+
+### 3.3 Data Validation and Quality Assurance (EDA Priority 3)
+- [ ] **Range Validations (Business Rule Implementation)**
+  - **Age Validation:** Ensure 18-100 years (flag outliers for review)
+  - **Campaign Calls Validation:** Cap extreme values at 50 (business realistic limits)
+    - Current range: -41 to 56 calls (negative values need investigation)
+  - **Previous Contact Days:** Validate 0-999 range consistency
+  - **Implementation:** Create validation functions with clear business rules
+
+- [ ] **Consistency Checks and Business Logic**
+  - **Education-Occupation Alignment:** Validate logical relationships
+  - **Loan Status Consistency:** Check Housing/Personal loan combinations
+  - **Campaign Timing Constraints:** Ensure realistic contact patterns
+  - **Implementation:** Business rule validation framework
+
+- [ ] **Data Quality Metrics Implementation**
+  - **Target Metrics:**
+    - 0 missing values (currently: 28,935)
+    - 0 unhandled special values (currently: 12,008)
+    - 100% data validation pass rate
+    - All features properly typed and formatted
+  - **Monitoring:** Create quality dashboard for ongoing validation
+
+### 3.4 Feature Engineering Preparation (EDA-Driven)
+- [ ] **Age Group Categorization**
+  - **Business Logic:** Create meaningful age segments for marketing
+  - **Implementation:** Age bins based on banking customer lifecycle
+  - **Output:** Categorical age groups for improved model performance
+
+- [ ] **Campaign Intensity Features**
+  - **Campaign Calls Categorization:** Low/Medium/High intensity based on distribution
+  - **Contact Recency Indicators:** Recent vs. historical contact patterns
+  - **Business Value:** Optimize contact frequency for subscription likelihood
+
+- [ ] **Interaction Feature Preparation**
+  - **Education-Occupation Combinations:** High-value customer segments
+  - **Loan Status Interactions:** Housing + Personal loan combinations
+  - **Contact Method-Age Interactions:** Channel preferences by demographics
+
+### 3.5 Data Pipeline Documentation and Implementation
+- [ ] **Comprehensive Cleaning Pipeline**
   ```python
-  # Clear data flow indicators in each function
-  def clean_data():
+  def clean_banking_data():
       """
       Input: data/raw/initial_dataset.csv (from bmarket.db)
-      Output: data/processed/cleaned_data.csv
-      Transformations: Age conversion, contact standardization, missing value handling
+      Output: data/processed/cleaned-db.csv
+
+      EDA-Based Transformations:
+      1. Age: Text to numeric conversion with validation
+      2. Missing Values: 28,935 total - domain-specific imputation
+      3. Special Values: 12,008 'unknown' values - business category retention
+      4. Contact Methods: Standardization of inconsistent values
+      5. Previous Contact: 999 → 'No Previous Contact' flag
+      6. Target Variable: Binary encoding (1=yes, 0=no)
+
+      Quality Targets:
+      - Zero missing values post-processing
+      - All features properly typed
+      - Business rules validated
+
+      File Format: CSV (optimal for 41K records, direct ML integration)
       """
   ```
 
-### Pragmatic Testing - Phase 3
-- [ ] Essential cleaning function tests:
-  - **Age conversion verification** with sample data
-  - **Contact method standardization** with known inputs
-  - **Missing value handling** with synthetic examples
-  - **Testing Strategy:** Use small, representative datasets for speed
-- [ ] Integration test for cleaning pipeline:
-  - **Input:** Small sample of raw data
-  - **Output:** Verified cleaned data properties
-  - **Focus:** Critical transformations work correctly
+- [ ] **Error Handling and Logging**
+  - **Data Quality Alerts:** Flag unexpected values or patterns
+  - **Transformation Logging:** Track all cleaning operations
+  - **Business Impact Reporting:** Document cleaning decisions and rationale
 
-## Phase 4: Database Integration (Simplified)
-- [ ] Create streamlined database operations
-  - **Business Value:** Efficient data storage and retrieval for pipeline
-  - **Implementation:** Focus on essential operations only
-- [ ] Database schema for processed data
-  - **Input:** `data/processed/cleaned_data.csv`
-  - **Output:** SQLite tables with proper indexing
-- [ ] Query functions for model pipeline
-  - **AI Context:** Clear, reusable functions for data extraction
+### Streamlined Testing - Phase 3 (EDA-Informed)
+- [ ] **Critical Data Quality Tests (Priority 1)**
+  - **Age conversion verification:** Text to numeric with edge cases
+    - Test cases: '57 years' → 57, invalid formats, boundary values
+  - **Missing value handling validation:** 28,935 missing values strategy
+    - Housing Loan (60.2% missing), Personal Loan (10.1% missing)
+  - **Special value cleaning tests:** 12,008 'unknown' values handling
+    - Credit Default (20.9%), Education Level (4.2%), other categories
+  - **Testing Strategy:** Use EDA-identified patterns for realistic test cases
+
+- [ ] **Data Standardization Tests (Priority 2)**
+  - **Contact method standardization:** Cell/cellular, Telephone/telephone consistency
+  - **Previous Contact Days handling:** 999 → 'No Previous Contact' flag validation
+  - **Target variable encoding:** 'yes'/'no' → 1/0 binary conversion
+  - **Focus:** Ensure standardization maintains business meaning
+
+- [ ] **Data Validation Tests (Priority 3)**
+  - **Range validation:** Age (18-100), Campaign Calls (-41 to 56 investigation)
+  - **Business rule validation:** Education-Occupation consistency
+  - **Quality metrics verification:** Zero missing values post-processing
+  - **Pipeline integration test:** End-to-end cleaning with EDA sample data
+
+- [ ] **Performance and Quality Assurance**
+  - **Data quality metrics:** Track cleaning success rates
+  - **Transformation logging:** Verify all EDA-identified issues addressed
+  - **Business impact validation:** Cleaned data supports marketing analysis
+
+## Phase 4: Data Integration and Validation (Streamlined)
+- [ ] **Data Integration Module (CSV-Based)**
+  - **Input:** `data/processed/cleaned-db.csv` (from Phase 3)
+  - **Business Value:** Efficient data access and validation for ML pipeline
+  - **Implementation:** Direct CSV operations (optimal for 41K records)
+  - **Rationale:** CSV format provides best performance and simplicity for this data size
+
+- [ ] **Data Access Functions**
+  - **Load and validate cleaned data:** Ensure Phase 3 cleaning was successful
+  - **Data integrity checks:** Verify all transformations completed correctly
+  - **Feature validation:** Confirm data types and ranges meet ML requirements
+  - **Business Value:** Reliable data foundation for feature engineering
+
+- [ ] **Pipeline Integration Utilities**
+  - **Data splitting utilities:** Prepare for train/test splits
+  - **Memory optimization:** Efficient data loading for downstream processes
+  - **Error handling:** Graceful handling of data access issues
+  - **AI Context:** Clear, reusable functions for data pipeline integration
 
 ### Essential Testing - Phase 4
-- [ ] Database connection and basic operations testing
-  - **Smoke Tests:** Connection, insertion, querying
-  - **Focus:** Core functionality verification only
+- [ ] **Data Integration and Validation Testing**
+  - **Data loading verification:** CSV file loads correctly with expected schema
+  - **Data integrity tests:** All Phase 3 transformations preserved
+  - **Performance tests:** Loading time acceptable for 41K records
+  - **Error handling tests:** Graceful handling of missing or corrupted files
+  - **Focus:** Reliable data access for downstream ML pipeline
 
 ## Phase 5: Feature Engineering with Business Context
 - [ ] Create feature engineering module with clear business rationale
-  - **Input:** `data/processed/cleaned_data.csv`
-  - **Output:** `data/featured/featured_data.csv`
+  - **Input:** `data/processed/cleaned-db.csv` (from Phase 3)
+  - **Output:** `data/featured/featured-db.csv`
   - **Business Value:** Features that directly impact subscription prediction accuracy
 - [ ] **Business-Driven Feature Creation:**
   - **Age binning:** Numerical age categories (1=young, 2=middle, 3=senior) for optimal model performance
@@ -149,8 +272,8 @@
   ```python
   def engineer_features():
       """
-      Input: data/processed/cleaned_data.csv
-      Output: data/featured/featured_data.csv
+      Input: data/processed/cleaned-db.csv (from Phase 3)
+      Output: data/featured/featured-db.csv
       Business Purpose: Create features for subscription prediction
       Key Features: age_bin, education_job_segment, recent_contact_flag
       """
@@ -294,10 +417,12 @@
   ```markdown
   ## Data Flow
   1. bmarket.db → data/raw/initial_dataset.csv (SQLite extraction)
-  2. data/raw/ → data/processed/cleaned_data.csv (cleaning pipeline)
+  2. data/raw/ → data/processed/cleaned-db.csv (cleaning pipeline)
   3. data/processed/ → data/featured/featured_data.csv (feature engineering)
   4. data/featured/ → trained_models/ (model training)
   5. trained_models/ → predictions/ (inference pipeline)
+
+  Format Decision: CSV-based pipeline (optimal for 41K records)
   ```
 - [ ] Business impact documentation:
   - **Expected ROI:** Quantified marketing improvement

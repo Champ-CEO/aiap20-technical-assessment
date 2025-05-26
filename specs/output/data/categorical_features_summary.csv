@@ -1,0 +1,38 @@
+Feature,Value,Count,Percentage
+Occupation,admin.,10422,25.303486452364766
+Occupation,blue-collar,9254,22.46770904146839
+Occupation,technician,6743,16.37127318636496
+Occupation,services,3969,9.636301835486064
+Occupation,management,2924,7.099155093716616
+Occupation,retired,1720,4.175973584539186
+Occupation,entrepreneur,1456,3.5350101971447994
+Occupation,self-employed,1421,3.450033990482665
+Occupation,housemaid,1060,2.5735651160532194
+Occupation,unemployed,1014,2.4618821015829853
+Occupation,student,875,2.1244051665533648
+Occupation,unknown,330,0.8012042342429834
+Marital Status,married,24928,60.52248227639119
+Marital Status,single,11568,28.085850247644945
+Marital Status,divorced,4612,11.197436146450421
+Marital Status,unknown,80,0.1942313295134505
+Education Level,university.degree,12168,29.542585218995825
+Education Level,high.school,9515,23.10138875400602
+Education Level,basic.9y,6045,14.676604836360104
+Education Level,professional.course,5243,12.729435757987764
+Education Level,basic.4y,4176,10.138875400602117
+Education Level,basic.6y,2292,5.5647275905603575
+Education Level,unknown,1731,4.202680392347285
+Education Level,illiterate,18,0.04370204914052637
+Credit Default,no,32588,79.12013207730408
+Credit Default,unknown,8597,20.87258424783918
+Credit Default,yes,3,0.007283674856754395
+Housing Loan,yes,8595,20.86772846460134
+Housing Loan,no,7411,17.993104787802274
+Housing Loan,unknown,393,0.9541614062348257
+Personal Loan,no,30532,74.12838690880838
+Personal Loan,yes,5633,13.676313489365835
+Personal Loan,unknown,877,2.1292609497912016
+Contact Method,Cell,13100,31.805380207827522
+Contact Method,cellular,13044,31.66941827716811
+Contact Method,Telephone,7585,18.415557929494028
+Contact Method,telephone,7459,18.109643585510344

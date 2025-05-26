@@ -55,6 +55,86 @@ def sample_dataframe():
 
 
 @pytest.fixture
+def small_sample_dataframe():
+    """
+    Create a small sample dataframe for fast testing (< 100 rows).
+
+    Efficiency: Minimal dataset for Phase 2 streamlined testing.
+    Business Value: Quick validation without performance overhead.
+    """
+    np.random.seed(42)
+    return pd.DataFrame({
+        'Client ID': range(1, 51),  # 50 rows for fast testing
+        'Age': np.random.choice(['25-35 years', '36-45 years', '46-55 years'], 50),
+        'Occupation': np.random.choice(['admin.', 'technician', 'services', 'management'], 50),
+        'Marital Status': np.random.choice(['married', 'single', 'divorced'], 50),
+        'Education Level': np.random.choice(['primary', 'secondary', 'tertiary'], 50),
+        'Credit Default': np.random.choice(['yes', 'no', 'unknown'], 50),
+        'Housing Loan': np.random.choice(['yes', 'no'], 50),
+        'Personal Loan': np.random.choice(['yes', 'no'], 50),
+        'Contact Method': np.random.choice(['cellular', 'telephone'], 50),
+        'Campaign Calls': np.random.randint(1, 10, 50),
+        'Previous Contact Days': np.random.randint(-1, 999, 50),
+        'Subscription Status': np.random.choice(['yes', 'no'], 50)
+    })
+
+
+@pytest.fixture
+def expected_columns():
+    """
+    Define expected columns for banking marketing dataset validation.
+
+    Business Value: Ensures data structure consistency for marketing analysis.
+    """
+    return [
+        'Client ID',
+        'Age',
+        'Occupation',
+        'Marital Status',
+        'Education Level',
+        'Credit Default',
+        'Housing Loan',
+        'Personal Loan',
+        'Contact Method',
+        'Campaign Calls',
+        'Previous Contact Days',
+        'Subscription Status'
+    ]
+
+
+@pytest.fixture
+def expected_data_types():
+    """
+    Define expected data types for validation testing.
+
+    Testing Philosophy: Quick verification of data integrity.
+    """
+    return {
+        'Client ID': ['int64', 'int32'],  # Allow both for flexibility
+        'Campaign Calls': ['int64', 'int32'],
+        'Previous Contact Days': ['int64', 'int32'],
+        'Age': ['object', 'str'],  # Text format in source data
+        'Subscription Status': ['object', 'str']
+    }
+
+
+@pytest.fixture
+def data_validation_rules():
+    """
+    Define business rules for data validation.
+
+    Business Value: Ensure data quality for marketing decision making.
+    """
+    return {
+        'subscription_values': ['yes', 'no'],
+        'age_categories': ['18-25 years', '25-35 years', '36-45 years', '46-55 years', '56-65 years', '65+ years'],
+        'campaign_calls_range': (-50, 100),  # Allow some negative values as seen in real data
+        'min_rows_expected': 1000,  # Minimum rows for meaningful analysis
+        'required_columns_count': 12
+    }
+
+
+@pytest.fixture
 def temp_database():
     """Create a temporary SQLite database for testing."""
     with tempfile.NamedTemporaryFile(suffix='.db', delete=False) as tmp_file:
