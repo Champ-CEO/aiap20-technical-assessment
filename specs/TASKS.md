@@ -288,40 +288,55 @@
   - **Documentation validation:** Ensure all functions have clear interfaces and error messages
 
 ## Phase 5: Feature Engineering with Business Context (TDD Approach)
-*Based on Phase 3 foundation: 41,188 cleaned records, 33 base features, 100% data quality*
+*Based on Phase 4 integration: 41,188 validated records, 33 base features, 100% data quality, production-ready data access*
 
 ### Step 1: Smoke Tests and Critical Tests (Define Requirements)
 - [ ] **Smoke Tests - Feature Engineering Core Requirements**
+  - **Phase 4 integration smoke test:** `prepare_ml_pipeline()` provides train/test/validation splits successfully
+  - **Data continuity smoke test:** `validate_phase3_continuity()` passes before feature engineering
   - **Feature creation smoke test:** Age binning produces expected categories (young/middle/senior)
-  - **Data flow smoke test:** Phase 4 cleaned data → featured data pipeline works
+  - **Data flow smoke test:** Phase 4 → Phase 5 data pipeline works end-to-end
   - **Output format smoke test:** Featured data saves correctly as CSV
   - **Critical path verification:** Core features (age_bin, contact_recency, campaign_intensity) created successfully
 
 - [ ] **Critical Tests - Business Feature Requirements**
+  - **Phase 4 continuity validation:** Data flow integrity maintained from Phase 4 integration
   - **Age binning validation:** 18-100 numeric age → meaningful business categories
   - **Education-occupation interaction:** High-value customer segments identified correctly
   - **Contact recency features:** No_Previous_Contact flag utilized effectively
   - **Campaign intensity features:** Campaign calls transformed to business-relevant intensity levels
-  - **Performance requirements:** Maintain >97K records/second processing from Phase 3
+  - **Performance requirements:** Maintain >97K records/second processing standard (Phase 4 achieved 437K+)
   - **Data integrity:** All Phase 3 foundation features preserved during transformation
+  - **Quality monitoring:** Continuous validation after each feature engineering step
+  - **Memory optimization:** Efficient processing for large feature sets
 
 ### Step 2: Core Functionality Implementation
-- [ ] **Create feature engineering module with clear business rationale**
-  - **Input:** `data/processed/cleaned-db.csv` (from Phase 3 - 41,188 records, 33 features, 0 missing values)
+- [ ] **Create feature engineering module with Phase 4 integration**
+  - **Input:** Phase 4 data integration module (`prepare_ml_pipeline()`, `validate_phase3_continuity()`)
+  - **Data Source:** 41,188 validated records, 33 features, 100% data quality from Phase 4
   - **Output:** `data/featured/featured-db.csv`
   - **Business Value:** Features that directly impact subscription prediction accuracy
-  - **Foundation:** Leverages Phase 3 cleaned age (numeric), standardized contact methods, binary target
+  - **Foundation:** Leverages Phase 3 cleaned data through Phase 4 production-ready integration
+  - **Performance Standard:** Maintain >97K records/second (Phase 4 achieved 437K+ records/second)
 
-- [ ] **Business-Driven Feature Creation (Phase 3 Report Recommendations):**
+- [ ] **Phase 4 Integration Requirements (Production-Ready Data Access):**
+  - **Data Loading:** Use `prepare_ml_pipeline()` for consistent train/test/validation splits
+  - **Continuity Validation:** Always run `validate_phase3_continuity()` before feature engineering
+  - **Quality Monitoring:** Implement continuous validation after each feature engineering step
+  - **Error Handling:** Use established error handling patterns from Phase 4
+  - **Memory Management:** Apply memory optimization for large feature sets
+  - **Performance Tracking:** Use pipeline utilities for performance monitoring
+
+- [ ] **Business-Driven Feature Creation (Phase 3 + Phase 4 Foundation):**
   - **Age binning:** Numerical age categories (1=young, 2=middle, 3=senior) for optimal model performance
-    - *Foundation:* Phase 3 converted age from text to numeric (18-100 range validated)
+    - *Foundation:* Phase 3 converted age from text to numeric (18-100 range validated), Phase 4 validated integrity
   - **Education-occupation interactions:** High-value customer segments
-    - *Foundation:* Phase 3 standardized categorical values and handled 'unknown' categories
+    - *Foundation:* Phase 3 standardized categorical values, Phase 4 ensured data consistency
   - **Contact recency:** Recent contact effect on subscription likelihood
-    - *Foundation:* Phase 3 created 'No_Previous_Contact' flag from 999 values (39,673 records)
+    - *Foundation:* Phase 3 created 'No_Previous_Contact' flag, Phase 4 validated business rules
   - **Campaign intensity:** Optimal contact frequency patterns
-    - *Foundation:* Phase 3 validated campaign calls and capped extreme values
-  - **Business Rationale:** Each feature tied to marketing strategy insights
+    - *Foundation:* Phase 3 validated campaign calls, Phase 4 confirmed data quality
+  - **Business Rationale:** Each feature tied to marketing strategy insights with validated data foundation
 
 - [ ] **Feature transformations with clear purpose:**
   - **Scaling:** Standardization for model performance
@@ -329,32 +344,44 @@
   - **Dimensionality:** PCA if needed for computational efficiency
   - **Documentation:** Clear business purpose for each transformation
 
-- [ ] **Data Pipeline Documentation:**
+- [ ] **Data Pipeline Documentation with Phase 4 Integration:**
   ```python
   def engineer_features():
       """
-      Input: data/processed/cleaned-db.csv (from Phase 3)
-      - 41,188 records, 33 features, 0 missing values
-      - Age: numeric (18-100), Contact: standardized, Target: binary
+      Input: Phase 4 data integration module
+      - Use prepare_ml_pipeline() for train/test/validation splits
+      - Use validate_phase3_continuity() for data integrity validation
+      - 41,188 validated records, 33 features, 100% data quality score
+      - Performance: >97K records/second standard (Phase 4 achieved 437K+)
 
       Output: data/featured/featured-db.csv
       Business Purpose: Create features for subscription prediction
       Key Features: age_bin, education_job_segment, recent_contact_flag, campaign_intensity
 
-      Phase 3 Foundation Utilized:
-      - Numeric age for binning
-      - Standardized contact methods for channel analysis
-      - No_Previous_Contact flag for recency features
-      - Validated campaign calls for intensity features
+      Phase 4 Integration Utilized:
+      - Production-ready data access with error handling
+      - Continuous validation and quality monitoring
+      - Memory optimization for large feature sets
+      - Performance tracking and monitoring utilities
+
+      Phase 3 Foundation Preserved:
+      - Numeric age for binning (validated by Phase 4)
+      - Standardized contact methods (integrity confirmed)
+      - No_Previous_Contact flag (business rules validated)
+      - Validated campaign calls (data quality confirmed)
       """
   ```
 
 ### Step 3: Comprehensive Testing and Refinement
-- [ ] **Integration Testing and Business Validation**
-  - **End-to-end feature pipeline:** Phase 3 cleaned data → featured data validation
-  - **Business logic validation:** Features make intuitive business sense
-  - **Performance optimization:** Fine-tune feature engineering for production use
+- [ ] **Integration Testing and Business Validation with Phase 4 Continuity**
+  - **Phase 4 → Phase 5 pipeline validation:** Complete data flow continuity testing
+  - **Data integration testing:** Validate `prepare_ml_pipeline()` and `validate_phase3_continuity()` usage
+  - **Quality monitoring validation:** Continuous validation after each feature engineering step
+  - **Performance optimization:** Maintain >97K records/second standard with memory optimization
+  - **Error handling validation:** Use established error handling patterns from Phase 4
+  - **Business logic validation:** Features make intuitive business sense with validated data foundation
   - **Feature quality assessment:** Validate feature distributions and correlations with target
+  - **Production readiness:** Ensure feature engineering meets deployment requirements
 
 ## Phase 6: Model Preparation (TDD Approach)
 
