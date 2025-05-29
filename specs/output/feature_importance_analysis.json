@@ -1,0 +1,102 @@
+{
+  "model_importances": {},
+  "aggregated_importance": {},
+  "phase7_validation": {
+    "individual_validations": {
+      "Client ID": {
+        "found": false,
+        "importance": 0.0,
+        "rank_in_top_10": null,
+        "in_top_10": false,
+        "validation_status": "NOT_FOUND"
+      },
+      "Previous Contact Days": {
+        "found": false,
+        "importance": 0.0,
+        "rank_in_top_10": null,
+        "in_top_10": false,
+        "validation_status": "NOT_FOUND"
+      },
+      "contact_effectiveness_score": {
+        "found": false,
+        "importance": 0.0,
+        "rank_in_top_10": null,
+        "in_top_10": false,
+        "validation_status": "NOT_FOUND"
+      }
+    },
+    "validated_features": 0,
+    "total_expected": 3,
+    "validation_rate": 0.0,
+    "overall_status": "FAILED"
+  },
+  "business_analysis": {
+    "feature_analysis": {
+      "age_bin": {
+        "importance": 0.0,
+        "impact_level": "NOT_FOUND",
+        "found": false
+      },
+      "customer_value_segment": {
+        "importance": 0.0,
+        "impact_level": "NOT_FOUND",
+        "found": false
+      },
+      "contact_effectiveness_score": {
+        "importance": 0.0,
+        "impact_level": "NOT_FOUND",
+        "found": false
+      },
+      "campaign_intensity": {
+        "importance": 0.0,
+        "impact_level": "NOT_FOUND",
+        "found": false
+      },
+      "recent_contact_flag": {
+        "importance": 0.0,
+        "impact_level": "NOT_FOUND",
+        "found": false
+      },
+      "education_job_segment": {
+        "importance": 0.0,
+        "impact_level": "NOT_FOUND",
+        "found": false
+      },
+      "financial_risk_score": {
+        "importance": 0.0,
+        "impact_level": "NOT_FOUND",
+        "found": false
+      }
+    },
+    "found_features": [],
+    "high_impact_features": [],
+    "business_feature_coverage": 0.0,
+    "high_impact_rate": 0
+  },
+  "feature_rankings": {
+    "overall": [],
+    "business_features": [],
+    "phase7_features": []
+  },
+  "top_features_summary": {
+    "top_5_features": [],
+    "top_10_features": [],
+    "top_20_features": [],
+    "cumulative_importance": {
+      "top_5": 0,
+      "top_10": 0,
+      "top_20": 0
+    },
+    "feature_concentration": {
+      "top_5_dominance": 0,
+      "feature_diversity": 1,
+      "effective_features": 0
+    }
+  },
+  "analysis_timestamp": "2025-05-29 23:52:04",
+  "performance": {
+    "analysis_time": 0.000553131103515625,
+    "models_analyzed": 0,
+    "features_analyzed": 44
+  }
+}

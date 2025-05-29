@@ -1,0 +1,109 @@
+{
+  "report_metadata": {
+    "generation_timestamp": "2025-05-29T23:52:07.874673",
+    "phase": "Phase 8 - Model Evaluation",
+    "step": "Step 2 - Core Functionality Implementation",
+    "status": "COMPLETED"
+  },
+  "evaluation_summary": {
+    "total_models_evaluated": 5,
+    "evaluation_timestamp": "2025-05-29 23:52:07",
+    "top_performers": {
+      "accuracy": {
+        "model": "GradientBoosting",
+        "score": 0.9006749538700592
+      },
+      "f1_score": {
+        "model": "GradientBoosting",
+        "score": 0.8763223429280196
+      },
+      "speed": {
+        "model": "LogisticRegression",
+        "score": 92177.73442588137
+      },
+      "auc": {
+        "model": "RandomForest",
+        "score": 0.8381288465003982
+      },
+      "overall": {
+        "model": "NaiveBayes",
+        "score": 0.8556375011021129
+      }
+    },
+    "model_summary": {
+      "GradientBoosting": {
+        "accuracy": 0.9006749538700592,
+        "f1_score": 0.8763223429280196,
+        "auc_score": 0.7994333001617147,
+        "records_per_second": 65929.6220775226
+      },
+      "NaiveBayes": {
+        "accuracy": 0.8975186947654656,
+        "f1_score": 0.873603754563565,
+        "auc_score": 0.7491949002822929,
+        "records_per_second": 78083.68211300315
+      },
+      "RandomForest": {
+        "accuracy": 0.8519714479945615,
+        "f1_score": 0.8655718108069377,
+        "auc_score": 0.8381288465003982,
+        "records_per_second": 69986.62824177605
+      },
+      "LogisticRegression": {
+        "accuracy": 0.7108138292706614,
+        "f1_score": 0.7620565125010283,
+        "auc_score": 0.7737459453416008,
+        "records_per_second": 92177.73442588137
+      },
+      "SVM": {
+        "accuracy": 0.7981936486355249,
+        "f1_score": 0.8265168616117587,
+        "auc_score": 0.7963095237533635,
+        "records_per_second": 402.0083883124127
+      }
+    }
+  },
+  "top_performers": {
+    "accuracy": {
+      "model": "GradientBoosting",
+      "score": 0.9006749538700592
+    },
+    "f1_score": {
+      "model": "GradientBoosting",
+      "score": 0.8763223429280196
+    },
+    "speed": {
+      "model": "LogisticRegression",
+      "score": 92177.73442588137
+    },
+    "auc": {
+      "model": "RandomForest",
+      "score": 0.8381288465003982
+    },
+    "overall": {
+      "model": "NaiveBayes",
+      "score": 0.8556375011021129
+    }
+  },
+  "business_insights": {
+    "best_roi_model": "GradientBoosting",
+    "best_roi_value": 61.12620807276862,
+    "customer_segments_analyzed": [
+      "Premium",
+      "Standard",
+      "Basic"
+    ]
+  },
+  "production_recommendations": {
+    "primary_model": "NaiveBayes",
+    "secondary_model": "GradientBoosting",
+    "tertiary_model": "RandomForest",
+    "rationale": {
+      "primary": "Best overall performance: 0.8556",
+      "secondary": "Second best performance: 0.8546",
+      "tertiary": "Third best performance: 0.8440"
+    },
+    "deployment_strategy": "conservative"
+  },
+  "performance_metrics": {}
+}
