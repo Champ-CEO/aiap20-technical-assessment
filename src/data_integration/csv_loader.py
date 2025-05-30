@@ -19,8 +19,15 @@ import time
 import logging
 from pathlib import Path
 from typing import Dict, Any, Optional, Union
-import psutil
 import os
+
+# Optional psutil import for performance monitoring
+try:
+    import psutil
+
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    PSUTIL_AVAILABLE = False
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -132,8 +139,13 @@ class CSVLoader:
         try:
             # Start performance monitoring
             start_time = time.time()
-            process = psutil.Process()
-            initial_memory = process.memory_info().rss / 1024 / 1024  # MB
+
+            # Initialize memory tracking if psutil is available
+            if PSUTIL_AVAILABLE:
+                process = psutil.Process()
+                initial_memory = process.memory_info().rss / 1024 / 1024  # MB
+            else:
+                initial_memory = 0
 
             # Load data based on parameters
             if chunk_size is not None:
@@ -143,8 +155,12 @@ class CSVLoader:
 
             # Calculate performance metrics
             load_time = time.time() - start_time
-            final_memory = process.memory_info().rss / 1024 / 1024  # MB
-            memory_used = final_memory - initial_memory
+
+            if PSUTIL_AVAILABLE:
+                final_memory = process.memory_info().rss / 1024 / 1024  # MB
+                memory_used = final_memory - initial_memory
+            else:
+                memory_used = 0  # Fallback when psutil not available
 
             self.performance_metrics.update(
                 {

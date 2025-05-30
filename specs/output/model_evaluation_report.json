@@ -1,0 +1,519 @@
+{
+  "evaluation_summary": {
+    "total_models_evaluated": 0,
+    "evaluation_timestamp": "2025-05-30 18:46:46",
+    "top_performers": {
+      "accuracy": {
+        "model": "GradientBoosting",
+        "score": 0
+      },
+      "f1_score": {
+        "model": "GradientBoosting",
+        "score": 0
+      },
+      "speed": {
+        "model": "GradientBoosting",
+        "score": 0
+      },
+      "auc": {
+        "model": "GradientBoosting",
+        "score": 0
+      },
+      "overall": {
+        "model": "GradientBoosting",
+        "score": 0.0
+      }
+    },
+    "model_summary": {}
+  },
+  "detailed_evaluation": {
+    "GradientBoosting": null,
+    "NaiveBayes": null,
+    "RandomForest": null,
+    "LogisticRegression": null,
+    "SVM": null
+  },
+  "model_comparison": {
+    "model_metrics": {
+      "GradientBoosting": {
+        "accuracy": 0,
+        "precision": 0,
+        "recall": 0,
+        "f1_score": 0,
+        "auc_score": 0,
+        "records_per_second": 0
+      },
+      "NaiveBayes": {
+        "accuracy": 0,
+        "precision": 0,
+        "recall": 0,
+        "f1_score": 0,
+        "auc_score": 0,
+        "records_per_second": 0
+      },
+      "RandomForest": {
+        "accuracy": 0,
+        "precision": 0,
+        "recall": 0,
+        "f1_score": 0,
+        "auc_score": 0,
+        "records_per_second": 0
+      },
+      "LogisticRegression": {
+        "accuracy": 0,
+        "precision": 0,
+        "recall": 0,
+        "f1_score": 0,
+        "auc_score": 0,
+        "records_per_second": 0
+      },
+      "SVM": {
+        "accuracy": 0,
+        "precision": 0,
+        "recall": 0,
+        "f1_score": 0,
+        "auc_score": 0,
+        "records_per_second": 0
+      }
+    },
+    "rankings": {
+      "accuracy": [
+        [
+          "GradientBoosting",
+          0
+        ],
+        [
+          "NaiveBayes",
+          0
+        ],
+        [
+          "RandomForest",
+          0
+        ],
+        [
+          "LogisticRegression",
+          0
+        ],
+        [
+          "SVM",
+          0
+        ]
+      ],
+      "f1_score": [
+        [
+          "GradientBoosting",
+          0
+        ],
+        [
+          "NaiveBayes",
+          0
+        ],
+        [
+          "RandomForest",
+          0
+        ],
+        [
+          "LogisticRegression",
+          0
+        ],
+        [
+          "SVM",
+          0
+        ]
+      ],
+      "speed": [
+        [
+          "GradientBoosting",
+          0
+        ],
+        [
+          "NaiveBayes",
+          0
+        ],
+        [
+          "RandomForest",
+          0
+        ],
+        [
+          "LogisticRegression",
+          0
+        ],
+        [
+          "SVM",
+          0
+        ]
+      ],
+      "auc": [
+        [
+          "GradientBoosting",
+          0
+        ],
+        [
+          "NaiveBayes",
+          0
+        ],
+        [
+          "RandomForest",
+          0
+        ],
+        [
+          "LogisticRegression",
+          0
+        ],
+        [
+          "SVM",
+          0
+        ]
+      ],
+      "overall": [
+        [
+          "GradientBoosting",
+          0.0
+        ],
+        [
+          "NaiveBayes",
+          0.0
+        ],
+        [
+          "RandomForest",
+          0.0
+        ],
+        [
+          "LogisticRegression",
+          0.0
+        ],
+        [
+          "SVM",
+          0.0
+        ]
+      ]
+    },
+    "comparison_summary": {
+      "best_performers": {
+        "accuracy": {
+          "model": "GradientBoosting",
+          "score": 0
+        },
+        "f1_score": {
+          "model": "GradientBoosting",
+          "score": 0
+        },
+        "speed": {
+          "model": "GradientBoosting",
+          "score": 0
+        },
+        "auc": {
+          "model": "GradientBoosting",
+          "score": 0
+        },
+        "overall": {
+          "model": "GradientBoosting",
+          "score": 0.0
+        }
+      },
+      "performance_statistics": {
+        "accuracy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": "0",
+          "max": "0"
+        },
+        "speed": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": "0",
+          "max": "0"
+        }
+      },
+      "models_meeting_standards": {
+        "accuracy_baseline": 0,
+        "speed_standard": 0
+      }
+    },
+    "phase7_validation": {
+      "GradientBoosting": {
+        "phase7_accuracy": 0.8978,
+        "current_accuracy": 0,
+        "accuracy_difference": -0.8978,
+        "performance_maintained": false,
+        "performance_improved": false
+      },
+      "NaiveBayes": {
+        "phase7_accuracy": 0.8954,
+        "current_accuracy": 0,
+        "accuracy_difference": -0.8954,
+        "performance_maintained": false,
+        "performance_improved": false
+      },
+      "RandomForest": {
+        "phase7_accuracy": 0.846,
+        "current_accuracy": 0,
+        "accuracy_difference": -0.846,
+        "performance_maintained": false,
+        "performance_improved": false
+      },
+      "SVM": {
+        "phase7_accuracy": 0.7879,
+        "current_accuracy": 0,
+        "accuracy_difference": -0.7879,
+        "performance_maintained": false,
+        "performance_improved": false
+      },
+      "LogisticRegression": {
+        "phase7_accuracy": 0.7147,
+        "current_accuracy": 0,
+        "accuracy_difference": -0.7147,
+        "performance_maintained": false,
+        "performance_improved": false
+      }
+    },
+    "deployment_analysis": {
+      "current_strategy_validation": {
+        "Primary": {
+          "model": "GradientBoosting",
+          "accuracy": 0,
+          "speed": 0,
+          "meets_accuracy_baseline": false,
+          "meets_speed_standard": false
+        },
+        "Secondary": {
+          "model": "RandomForest",
+          "accuracy": 0,
+          "speed": 0,
+          "meets_accuracy_baseline": false,
+          "meets_speed_standard": false
+        },
+        "Tertiary": {
+          "model": "NaiveBayes",
+          "accuracy": 0,
+          "speed": 0,
+          "meets_accuracy_baseline": false,
+          "meets_speed_standard": false
+        }
+      },
+      "recommended_strategy": {
+        "Primary": "GradientBoosting",
+        "Secondary": "NaiveBayes",
+        "Tertiary": "RandomForest"
+      },
+      "strategy_alignment": false
+    },
+    "performance_analysis": {
+      "GradientBoosting": {
+        "meets_accuracy_baseline": false,
+        "meets_speed_standard": false,
+        "accuracy_ratio": 0.0,
+        "speed_ratio": 0.0,
+        "overall_compliance": false
+      },
+      "NaiveBayes": {
+        "meets_accuracy_baseline": false,
+        "meets_speed_standard": false,
+        "accuracy_ratio": 0.0,
+        "speed_ratio": 0.0,
+        "overall_compliance": false
+      },
+      "RandomForest": {
+        "meets_accuracy_baseline": false,
+        "meets_speed_standard": false,
+        "accuracy_ratio": 0.0,
+        "speed_ratio": 0.0,
+        "overall_compliance": false
+      },
+      "LogisticRegression": {
+        "meets_accuracy_baseline": false,
+        "meets_speed_standard": false,
+        "accuracy_ratio": 0.0,
+        "speed_ratio": 0.0,
+        "overall_compliance": false
+      },
+      "SVM": {
+        "meets_accuracy_baseline": false,
+        "meets_speed_standard": false,
+        "accuracy_ratio": 0.0,
+        "speed_ratio": 0.0,
+        "overall_compliance": false
+      }
+    }
+  },
+  "business_analysis": {},
+  "deployment_validation": {
+    "tier_validation": {
+      "Primary": {
+        "model": "GradientBoosting",
+        "available": false,
+        "validation_status": "FAILED",
+        "reason": "Model not available or evaluation failed"
+      },
+      "Secondary": {
+        "model": "RandomForest",
+        "available": false,
+        "validation_status": "FAILED",
+        "reason": "Model not available or evaluation failed"
+      },
+      "Tertiary": {
+        "model": "NaiveBayes",
+        "available": false,
+        "validation_status": "FAILED",
+        "reason": "Model not available or evaluation failed"
+      }
+    },
+    "strategy_assessment": {
+      "strategy_status": "VALIDATION_FAILED",
+      "strategy_health": "POOR",
+      "successful_tiers": 0,
+      "total_tiers": 3,
+      "success_rate": 0.0,
+      "critical_issues": [
+        "Primary model (GradientBoosting) validation failed",
+        "Secondary model (RandomForest) validation failed",
+        "Tertiary model (NaiveBayes) validation failed"
+      ],
+      "deployment_recommendation": "DO_NOT_DEPLOY"
+    },
+    "alternative_strategy": {
+      "recommended_strategy": {},
+      "current_strategy": {
+        "Primary": "GradientBoosting",
+        "Secondary": "RandomForest",
+        "Tertiary": "NaiveBayes"
+      },
+      "strategy_changed": true,
+      "model_rankings": [],
+      "recommendation_rationale": "Based on composite score (70% accuracy, 30% speed)"
+    },
+    "deployment_readiness": {
+      "readiness_level": "NOT_READY",
+      "deployment_confidence": "NONE",
+      "ready_tiers": 0,
+      "primary_ready": false,
+      "can_deploy": false,
+      "recommended_action": "Do not deploy, retrain models"
+    },
+    "validation_timestamp": "2025-05-30 18:46:45",
+    "validation_performance": {
+      "validation_time": 0.0,
+      "tiers_validated": 3
+    }
+  },
+  "feature_importance": {
+    "model_importances": {},
+    "aggregated_importance": {},
+    "phase7_validation": {
+      "individual_validations": {
+        "Client ID": {
+          "found": false,
+          "importance": 0.0,
+          "rank_in_top_10": null,
+          "in_top_10": false,
+          "validation_status": "NOT_FOUND"
+        },
+        "Previous Contact Days": {
+          "found": false,
+          "importance": 0.0,
+          "rank_in_top_10": null,
+          "in_top_10": false,
+          "validation_status": "NOT_FOUND"
+        },
+        "contact_effectiveness_score": {
+          "found": false,
+          "importance": 0.0,
+          "rank_in_top_10": null,
+          "in_top_10": false,
+          "validation_status": "NOT_FOUND"
+        }
+      },
+      "validated_features": 0,
+      "total_expected": 3,
+      "validation_rate": 0.0,
+      "overall_status": "FAILED"
+    },
+    "business_analysis": {
+      "feature_analysis": {
+        "age_bin": {
+          "importance": 0.0,
+          "impact_level": "NOT_FOUND",
+          "found": false
+        },
+        "customer_value_segment": {
+          "importance": 0.0,
+          "impact_level": "NOT_FOUND",
+          "found": false
+        },
+        "contact_effectiveness_score": {
+          "importance": 0.0,
+          "impact_level": "NOT_FOUND",
+          "found": false
+        },
+        "campaign_intensity": {
+          "importance": 0.0,
+          "impact_level": "NOT_FOUND",
+          "found": false
+        },
+        "recent_contact_flag": {
+          "importance": 0.0,
+          "impact_level": "NOT_FOUND",
+          "found": false
+        },
+        "education_job_segment": {
+          "importance": 0.0,
+          "impact_level": "NOT_FOUND",
+          "found": false
+        },
+        "financial_risk_score": {
+          "importance": 0.0,
+          "impact_level": "NOT_FOUND",
+          "found": false
+        }
+      },
+      "found_features": [],
+      "high_impact_features": [],
+      "business_feature_coverage": 0.0,
+      "high_impact_rate": 0
+    },
+    "feature_rankings": {
+      "overall": [],
+      "business_features": [],
+      "phase7_features": []
+    },
+    "top_features_summary": {
+      "top_5_features": [],
+      "top_10_features": [],
+      "top_20_features": [],
+      "cumulative_importance": {
+        "top_5": 0,
+        "top_10": 0,
+        "top_20": 0
+      },
+      "feature_concentration": {
+        "top_5_dominance": 0,
+        "feature_diversity": 1,
+        "effective_features": 0
+      }
+    },
+    "analysis_timestamp": "2025-05-30 18:46:45",
+    "performance": {
+      "analysis_time": 0.0010039806365966797,
+      "models_analyzed": 0,
+      "features_analyzed": 37
+    }
+  },
+  "ensemble_evaluation": {
+    "error": "Insufficient models for ensemble"
+  },
+  "visualizations": {
+    "error": "not enough values to unpack (expected 2, got 0)",
+    "visualization_status": "FAILED"
+  },
+  "production_recommendations": {
+    "primary_model": "GradientBoosting",
+    "secondary_model": "NaiveBayes",
+    "tertiary_model": "RandomForest",
+    "rationale": {
+      "primary": "Best overall performance: 0.0000",
+      "secondary": "Second best performance: 0.0000",
+      "tertiary": "Third best performance: 0.0000"
+    },
+    "deployment_strategy": "conservative"
+  }
+}

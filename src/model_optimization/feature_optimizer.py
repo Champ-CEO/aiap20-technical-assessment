@@ -7,6 +7,7 @@ Provides feature selection and optimization capabilities for enhanced model perf
 
 import json
 import numpy as np
+import pandas as pd
 import logging
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
@@ -479,6 +480,19 @@ class FeatureOptimizer:
         )
 
         return recommendations
+
+    def optimize_features(self, data: pd.DataFrame = None) -> Dict[str, Any]:
+        """
+        Optimize features for the pipeline (alias for optimize_feature_set).
+
+        Args:
+            data (pd.DataFrame, optional): Input data for optimization
+
+        Returns:
+            Dict[str, Any]: Feature optimization results
+        """
+        logger.info("Starting feature optimization for pipeline integration")
+        return self.optimize_feature_set()
 
     def get_feature_selection_summary(self) -> Dict[str, Any]:
         """

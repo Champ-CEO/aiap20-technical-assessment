@@ -286,3 +286,44 @@ class ModelSelector:
         )
 
         return validation
+
+    def get_model_selection_strategy(self) -> Dict[str, Any]:
+        """
+        Get comprehensive model selection strategy.
+
+        Returns:
+            Dict[str, Any]: Complete model selection strategy
+        """
+        logger.info("Generating model selection strategy")
+
+        # Select primary model
+        primary_model = self.select_primary_model()
+
+        # Get 3-tier deployment strategy
+        deployment_strategy = self.get_3tier_deployment_strategy()
+
+        # Get selection criteria
+        selection_criteria = self.get_selection_criteria()
+
+        # Validate primary model selection
+        validation = self.validate_model_selection(primary_model)
+
+        return {
+            "status": "success",
+            "primary_model": primary_model,
+            "deployment_strategy": deployment_strategy,
+            "selection_criteria": selection_criteria,
+            "validation": validation,
+            "phase8_integration": True,
+            "recommendation": "Use 3-tier deployment with GradientBoosting as primary model",
+        }
+
+    def select_models(self) -> Dict[str, Any]:
+        """
+        Select models for pipeline integration (alias for get_model_selection_strategy).
+
+        Returns:
+            Dict[str, Any]: Model selection results
+        """
+        logger.info("Starting model selection for pipeline integration")
+        return self.get_model_selection_strategy()

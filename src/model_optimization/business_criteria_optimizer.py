@@ -271,6 +271,18 @@ class BusinessCriteriaOptimizer:
         )
         return recommendations
 
+    def generate_segment_recommendations(self, segment: str) -> Dict[str, Any]:
+        """
+        Generate recommendations for a specific customer segment (alias for get_segment_recommendations).
+
+        Args:
+            segment (str): Customer segment name
+
+        Returns:
+            Dict[str, Any]: Segment-specific recommendations
+        """
+        return self.get_segment_recommendations(segment)
+
     def _get_targeting_strategy(self, segment: str) -> str:
         """Get targeting strategy for segment."""
         strategies = {
@@ -333,3 +345,35 @@ class BusinessCriteriaOptimizer:
             f"ROI preservation validation: {validation['preservation_status']} ({preservation_ratio:.1%})"
         )
         return validation
+
+    def optimize_business_criteria(self) -> Dict[str, Any]:
+        """
+        Optimize business criteria for pipeline integration.
+
+        Returns:
+            Dict[str, Any]: Business criteria optimization results
+        """
+        logger.info("Starting business criteria optimization for pipeline integration")
+
+        # Load customer segments
+        segment_data = self.load_customer_segments()
+
+        # Optimize for ROI
+        roi_optimization = self.optimize_for_roi(segment_data)
+
+        # Calculate total ROI potential
+        total_roi = self.calculate_total_roi_potential()
+
+        # Generate recommendations for all segments
+        recommendations = {}
+        for segment in ["Premium", "Standard", "Basic"]:
+            recommendations[segment] = self.generate_segment_recommendations(segment)
+
+        return {
+            "status": "success",
+            "segment_data": segment_data,
+            "roi_optimization": roi_optimization,
+            "total_roi_potential": total_roi,
+            "segment_recommendations": recommendations,
+            "optimization_strategy": self.optimization_strategy,
+        }
