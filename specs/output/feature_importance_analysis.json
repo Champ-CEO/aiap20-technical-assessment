@@ -93,9 +93,9 @@
       "effective_features": 0
     }
   },
-  "analysis_timestamp": "2025-05-30 18:46:45",
+  "analysis_timestamp": "2025-05-31 18:41:18",
   "performance": {
-    "analysis_time": 0.0010039806365966797,
+    "analysis_time": 0.0,
     "models_analyzed": 0,
     "features_analyzed": 37
   }
