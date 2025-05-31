@@ -58,15 +58,21 @@ echo "=================================================="
 check_prerequisites() {
     echo "🔍 Checking prerequisites..."
 
-    # Check if Python is available
-    if ! command -v python &> /dev/null; then
+    # Check if Python is available (prioritize virtual environment)
+    PYTHON_CMD=""
+    if command -v python &> /dev/null; then
+        PYTHON_CMD="python"
+    elif command -v python3 &> /dev/null; then
+        PYTHON_CMD="python3"
+    else
         echo "❌ Error: Python not found. Please install Python 3.8+"
         exit 1
     fi
 
-    # Check Python version (fix for Windows compatibility)
-    python_version=$(python --version 2>&1 | awk '{print $2}')
+    # Check Python version (cross-platform compatible)
+    python_version=$($PYTHON_CMD --version 2>&1 | sed 's/Python //')
     echo "✅ Python version: $python_version"
+    echo "✅ Using Python command: $PYTHON_CMD"
 
     # Check if required directories exist
     if [ ! -d "src" ]; then
@@ -103,18 +109,31 @@ run_pipeline() {
     echo ""
     echo "🔄 Executing Phase 10 Pipeline Integration in $mode mode..."
 
+    # Try to run with the detected Python command, fallback to direct python if it fails
     case $mode in
         "test")
-            python main.py --test
+            if ! $PYTHON_CMD main.py --test 2>/dev/null; then
+                echo "⚠️  Fallback: Trying direct python command..."
+                python main.py --test
+            fi
             ;;
         "benchmark")
-            python main.py --benchmark
+            if ! $PYTHON_CMD main.py --benchmark 2>/dev/null; then
+                echo "⚠️  Fallback: Trying direct python command..."
+                python main.py --benchmark
+            fi
             ;;
         "validate")
-            python main.py --validate
+            if ! $PYTHON_CMD main.py --validate 2>/dev/null; then
+                echo "⚠️  Fallback: Trying direct python command..."
+                python main.py --validate
+            fi
             ;;
         "production"|*)
-            python main.py
+            if ! $PYTHON_CMD main.py 2>/dev/null; then
+                echo "⚠️  Fallback: Trying direct python command..."
+                python main.py
+            fi
             ;;
     esac
 }

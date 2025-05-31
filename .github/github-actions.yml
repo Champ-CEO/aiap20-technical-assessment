@@ -6,13 +6,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Run executable bash script
-        run: bash ./run.sh
+      - name: Run pipeline directly
+        run: python main.py
+      - name: Verify output
+        run: |
+          if [ -f "subscription_predictions.csv" ]; then
+            echo "✅ Output file created successfully"
+            echo "📊 File size: $(du -h subscription_predictions.csv | cut -f1)"
+            echo "📊 Number of predictions: $(($(wc -l < subscription_predictions.csv) - 1))"
+          else
+            echo "❌ Output file not found"
+            exit 1
+          fi
       - name: Assessment 2 Reminder
         run: |
           echo "Reminder to add AISG-AIAP as a collaborator in your repository"

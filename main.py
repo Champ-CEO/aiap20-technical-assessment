@@ -72,6 +72,29 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def safe_print(text):
+    """Print text with fallback for Unicode issues."""
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        # Fallback: replace Unicode characters with ASCII equivalents
+        safe_text = (
+            text.replace("🚀", "[ROCKET]")
+            .replace("📋", "[CLIPBOARD]")
+            .replace("•", "*")
+            .replace("⚠️", "[WARNING]")
+            .replace("✅", "[CHECK]")
+            .replace("❌", "[X]")
+            .replace("🔄", "[REFRESH]")
+            .replace("🧪", "[TEST]")
+            .replace("📊", "[CHART]")
+            .replace("🎯", "[TARGET]")
+            .replace("📄", "[PAGE]")
+            .replace("🎉", "[PARTY]")
+        )
+        print(safe_text)
+
+
 def main():
     """
     Complete ML Pipeline: bmarket.db → subscription_predictions.csv
@@ -95,23 +118,25 @@ def main():
 
     args = parser.parse_args()
 
-    print("🚀 Phase 10: Pipeline Integration")
-    print("=" * 50)
-    print("📋 Pipeline Configuration:")
-    print("   • Models: Ensemble Voting (92.5% accuracy)")
-    print("   • Architecture: 3-tier failover")
-    print("   • Features: 45 optimized features")
-    print("   • Performance: 72,000+ rec/sec ensemble")
-    print("   • ROI Potential: 6,112%")
-    print("   • Phase 9 Integration: All 9 modules")
-    print("=" * 50)
+    safe_print("🚀 Phase 10: Pipeline Integration")
+    safe_print("=" * 50)
+    safe_print("📋 Pipeline Configuration:")
+    safe_print("   • Models: Ensemble Voting (92.5% accuracy)")
+    safe_print("   • Architecture: 3-tier failover")
+    safe_print("   • Features: 45 optimized features")
+    safe_print("   • Performance: 72,000+ rec/sec ensemble")
+    safe_print("   • ROI Potential: 6,112%")
+    safe_print("   • Phase 9 Integration: All 9 modules")
+    safe_print("=" * 50)
 
     # Check if pipeline modules are available for execution
     if not PIPELINE_MODULES_AVAILABLE:
-        print("\n⚠️  Pipeline modules not fully available.")
-        print("📋 This is expected during documentation phase.")
-        print("🚀 For full execution, ensure all Phase 10 modules are implemented.")
-        print("✅ Help functionality works for documentation purposes.")
+        safe_print("\n⚠️  Pipeline modules not fully available.")
+        safe_print("📋 This is expected during documentation phase.")
+        safe_print(
+            "🚀 For full execution, ensure all Phase 10 modules are implemented."
+        )
+        safe_print("✅ Help functionality works for documentation purposes.")
         return 0
 
     try:
@@ -126,13 +151,13 @@ def main():
 
     except Exception as e:
         logger.error(f"Pipeline execution failed: {e}")
-        print(f"\n❌ Error: {e}")
+        safe_print(f"\n❌ Error: {e}")
         return 1
 
 
 def run_test_mode() -> int:
     """Run pipeline in test mode."""
-    print("\n🧪 Test Mode: Pipeline validation")
+    safe_print("\n🧪 Test Mode: Pipeline validation")
     logger.info("Starting test mode execution")
 
     try:
@@ -143,41 +168,45 @@ def run_test_mode() -> int:
         results = pipeline.execute_complete_pipeline(mode="test")
 
         if results["status"] == "success":
-            print("✅ Test mode completed successfully")
-            print(f"   • Execution time: {results['execution_time']:.2f} seconds")
-            print(f"   • Data pipeline: {results['data_pipeline']['status']}")
-            print(f"   • Feature pipeline: {results['feature_pipeline']['status']}")
-            print(f"   • Model pipeline: {results['model_pipeline']['status']}")
-            print(f"   • Business pipeline: {results['business_pipeline']['status']}")
-            print(
+            safe_print("✅ Test mode completed successfully")
+            safe_print(f"   • Execution time: {results['execution_time']:.2f} seconds")
+            safe_print(f"   • Data pipeline: {results['data_pipeline']['status']}")
+            safe_print(
+                f"   • Feature pipeline: {results['feature_pipeline']['status']}"
+            )
+            safe_print(f"   • Model pipeline: {results['model_pipeline']['status']}")
+            safe_print(
+                f"   • Business pipeline: {results['business_pipeline']['status']}"
+            )
+            safe_print(
                 f"   • Performance pipeline: {results['performance_pipeline']['status']}"
             )
 
             # Display performance metrics
             perf_metrics = results.get("performance_metrics", {})
             if perf_metrics:
-                print(
+                safe_print(
                     f"   • Processing speed: {perf_metrics.get('records_per_second', 0):.0f} rec/sec"
                 )
-                print(
+                safe_print(
                     f"   • Meets standard: {perf_metrics.get('meets_performance_standard', False)}"
                 )
 
             return 0
         else:
-            print("❌ Test mode failed")
-            print(f"   • Error: {results.get('error', 'Unknown error')}")
+            safe_print("❌ Test mode failed")
+            safe_print(f"   • Error: {results.get('error', 'Unknown error')}")
             return 1
 
     except Exception as e:
         logger.error(f"Test mode failed: {e}")
-        print(f"❌ Test mode error: {e}")
+        safe_print(f"❌ Test mode error: {e}")
         return 1
 
 
 def run_benchmark_mode() -> int:
     """Run performance benchmark mode."""
-    print("\n📊 Benchmark Mode: Performance testing")
+    safe_print("\n📊 Benchmark Mode: Performance testing")
     logger.info("Starting benchmark mode execution")
 
     try:
@@ -188,8 +217,8 @@ def run_benchmark_mode() -> int:
         results = benchmark.run_comprehensive_benchmark()
 
         if results["status"] == "success":
-            print("✅ Benchmark completed successfully")
-            print(f"   • Benchmark time: {results['benchmark_time']:.2f} seconds")
+            safe_print("✅ Benchmark completed successfully")
+            safe_print(f"   • Benchmark time: {results['benchmark_time']:.2f} seconds")
 
             # Display overall score
             overall_score = results.get("overall_score", {})
@@ -214,19 +243,19 @@ def run_benchmark_mode() -> int:
 
             return 0
         else:
-            print("❌ Benchmark failed")
-            print(f"   • Error: {results.get('error', 'Unknown error')}")
+            safe_print("❌ Benchmark failed")
+            safe_print(f"   • Error: {results.get('error', 'Unknown error')}")
             return 1
 
     except Exception as e:
         logger.error(f"Benchmark mode failed: {e}")
-        print(f"❌ Benchmark error: {e}")
+        safe_print(f"❌ Benchmark error: {e}")
         return 1
 
 
 def run_validation_mode() -> int:
     """Run validation mode."""
-    print("\n✅ Validation Mode: Component checking")
+    safe_print("\n✅ Validation Mode: Component checking")
     logger.info("Starting validation mode execution")
 
     try:
@@ -237,53 +266,55 @@ def run_validation_mode() -> int:
         data_flow_pipeline = DataFlowPipeline()
         performance_benchmark = PerformanceBenchmark()
 
-        print("✅ All pipeline components initialized successfully")
+        safe_print("✅ All pipeline components initialized successfully")
 
         # Validate Phase 9 modules integration
         phase9_status = complete_pipeline.get_pipeline_status()["phase9_modules_status"]
-        print("   • Phase 9 modules status:")
+        safe_print("   • Phase 9 modules status:")
         for module, status in phase9_status.items():
-            print(f"     - {module}: {status}")
+            safe_print(f"     - {module}: {status}")
 
         # Validate infrastructure requirements
         infra_validation = performance_benchmark.validate_infrastructure_requirements()
         overall_validation = infra_validation.get("overall_validation", {})
-        print(
+        safe_print(
             f"   • Infrastructure compliance: {overall_validation.get('compliance_percentage', 0):.1f}%"
         )
 
         # Validate ensemble models
         ensemble_info = ensemble_pipeline.get_ensemble_info()
-        print(
+        safe_print(
             f"   • Ensemble status: {ensemble_info.get('ensemble_status', 'unknown')}"
         )
 
-        print("✅ Validation completed successfully")
+        safe_print("✅ Validation completed successfully")
         return 0
 
     except Exception as e:
         logger.error(f"Validation mode failed: {e}")
-        print(f"❌ Validation error: {e}")
+        safe_print(f"❌ Validation error: {e}")
         return 1
 
 
 def run_production_mode() -> int:
     """Run complete production pipeline."""
-    print("\n🔄 Production Mode: Complete pipeline execution")
+    safe_print("\n🔄 Production Mode: Complete pipeline execution")
     logger.info("Starting production mode execution")
 
     try:
         # Initialize complete pipeline
         pipeline = CompletePipeline()
 
-        print("📊 Executing complete end-to-end pipeline...")
+        safe_print("📊 Executing complete end-to-end pipeline...")
 
         # Run complete pipeline
         results = pipeline.execute_complete_pipeline(mode="production")
 
         if results["status"] == "success":
-            print("✅ Production pipeline completed successfully")
-            print(f"   • Total execution time: {results['execution_time']:.2f} seconds")
+            safe_print("✅ Production pipeline completed successfully")
+            safe_print(
+                f"   • Total execution time: {results['execution_time']:.2f} seconds"
+            )
 
             # Display pipeline stage results
             stages = results.get("stages", {})
@@ -331,21 +362,21 @@ def run_production_mode() -> int:
                     f"   • Average confidence: {output_summary.get('average_confidence', 0):.2f}"
                 )
 
-            print("\n🎯 Pipeline execution completed successfully!")
-            print("📄 Check subscription_predictions.csv for detailed results")
+            safe_print("\n🎯 Pipeline execution completed successfully!")
+            safe_print("📄 Check subscription_predictions.csv for detailed results")
 
             return 0
         else:
-            print("❌ Production pipeline failed")
-            print(f"   • Error: {results.get('error', 'Unknown error')}")
-            print(
+            safe_print("❌ Production pipeline failed")
+            safe_print(f"   • Error: {results.get('error', 'Unknown error')}")
+            safe_print(
                 f"   • Execution time: {results.get('execution_time', 0):.2f} seconds"
             )
             return 1
 
     except Exception as e:
         logger.error(f"Production mode failed: {e}")
-        print(f"❌ Production error: {e}")
+        safe_print(f"❌ Production error: {e}")
         return 1
 
 
