@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Processing Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .table-container {
+            overflow-x: auto; /* Enables horizontal scrolling on small screens [3] */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Merges borders for a cleaner look [1, 7] */
+            margin: 0;
+            padding: 0;
+            table-layout: fixed; /* Ensures predictable column widths [1] */
+        }
+
+        caption {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: left;
+            color: #0056b3;
+            padding-bottom: 10px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd; /* Subtle borders for separation [7] */
+            text-align: left;
+            vertical-align: top; /* Aligns content to the top for multi-line cells */
+            word-wrap: break-word; /* Ensures long words break and wrap [13] */
+            white-space: pre-wrap; /* Preserves line breaks from the source (e.g., <br> tags) [2] */
+        }
+
+        th {
+            background-color: #007bff; /* Distinct background for headers [1] */
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: sticky; /* Keeps header visible during horizontal scroll */
+            top: 0;
+            z-index: 10;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9; /* Zebra striping for readability [1, 9] */
+        }
+
+        tbody tr:hover {
+            background-color: #e9e9e9; /* Hover effect for better interaction [1] */
+            cursor: pointer;
+        }
+
+        /* Adjust column widths for better presentation */
+        th:nth-child(1), td:nth-child(1) { width: 15%; } /* Feature Category */
+        th:nth-child(2), td:nth-child(2) { width: 18%; } /* Original Features */
+        th:nth-child(3), td:nth-child(3) { width: 25%; } /* Transformations Applied */
+        th:nth-child(4), td:nth-child(4) { width: 22%; } /* Engineered Features */
+        th:nth-child(5), td:nth-child(5) { width: 20%; } /* Business Purpose */
+
+        /* Responsive adjustments for smaller screens */
+        @media screen and (max-width: 768px) {
+            table {
+                border: 0; /* Remove outer border for cleaner look on small screens */
+            }
+
+            th, td {
+                display: block; /* Stack cells vertically on small screens [5] */
+                width: auto !important; /* Override fixed width for stacking */
+                border: none; /* Remove individual cell borders when stacked */
+                padding: 10px;
+            }
+
+            th {
+                background-color: #0056b3; /* Darker blue for stacked headers */
+                text-align: center;
+                border-bottom: 2px solid #fff; /* Separator for stacked headers */
+                margin-bottom: 5px;
+            }
+
+            td {
+                background-color: #fff;
+                border-bottom: 1px solid #eee;
+                text-align: left;
+                position: relative;
+                padding-left: 50%; /* Make space for data-label */
+            }
+
+            td::before {
+                content: attr(data-label); /* Use data-label for pseudo-heading [8] */
+                position: absolute;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #555;
+            }
+
+            tbody tr {
+                margin-bottom: 15px;
+                display: block;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+            }
+
+            tbody tr:nth-child(even) {
+                background-color: #fff; /* Reset zebra striping for stacked rows */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="table-container">
+        <table>
+            <caption>Feature Processing Summary</caption>
+            <thead>
+                <tr>
+                    <th>Feature Category</th>
+                    <th>Original Features</th>
+                    <th>Transformations Applied</th>
+                    <th>Engineered Features</th>
+                    <th>Business Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Feature Category">Demographics</td>
+                    <td data-label="Original Features">Age, Marital Status, Education Level</td>
+                    <td data-label="Transformations Applied">Age: Text→Numeric conversion<br>Missing value imputation<br>Standardization</td>
+                    <td data-label="Engineered Features">age_bin (Young/Middle/Senior)<br>education_job_segment</td>
+                    <td data-label="Business Purpose">Targeted marketing by life stage<br>High-value customer identification</td>
+                </tr>
+                <tr>
+                    <td data-label="Feature Category">Occupation</td>
+                    <td data-label="Original Features">Occupation</td>
+                    <td data-label="Transformations Applied">'Unknown' value handling<br>Category standardization</td>
+                    <td data-label="Engineered Features">education_job_segment<br>customer_value_segment<br>is_premium_customer</td>
+                    <td data-label="Business Purpose">Premium segment identification<br>Occupation-education interactions</td>
+                </tr>
+                <tr>
+                    <td data-label="Feature Category">Financial</td>
+                    <td data-label="Original Features">Housing Loan, Personal Loan, Default History</td>
+                    <td data-label="Transformations Applied">Binary encoding<br>Missing value handling</td>
+                    <td data-label="Engineered Features">financial_risk_score<br>risk_category<br>is_high_risk</td>
+                    <td data-label="Business Purpose">Risk assessment<br>Product suitability</td>
+                </tr>
+                <tr>
+                    <td data-label="Feature Category">Campaign Data</td>
+                    <td data-label="Original Features">Contact Method, Campaign Calls, Previous Contact Days</td>
+                    <td data-label="Transformations Applied">Contact method standardization<br>999→'No Previous Contact' flag<br>Intensity calculations</td>
+                    <td data-label="Engineered Features">campaign_intensity<br>recent_contact_flag<br>contact_effectiveness_score<br>high_intensity_flag</td>
+                    <td data-label="Business Purpose">Campaign optimization<br>Contact timing strategy</td>
+                </tr>
+                <tr>
+                    <td data-label="Feature Category">Contact History</td>
+                    <td data-label="Original Features">Previous Outcome, Previous Contact Days</td>
+                    <td data-label="Transformations Applied">Outcome encoding<br>Recency calculations</td>
+                    <td data-label="Engineered Features">contact_recency<br>recent_contact_flag</td>
+                    <td data-label="Business Purpose">Contact effectiveness<br>Follow-up strategy</td>
+                </tr>
+                <tr>
+                    <td data-label="Feature Category">Economic</td>
+                    <td data-label="Original Features">Employment Variation Rate, Consumer Price Index, Consumer Confidence Index, Euribor Rate, Number of Employees</td>
+                    <td data-label="Transformations Applied">Scaling and normalization<br>Outlier handling</td>
+                    <td data-label="Engineered Features">(Preserved as-is for model input)</td>
+                    <td data-label="Business Purpose">Economic context<br>Market timing</td>
+                </tr>
+                <tr>
+                    <td data-label="Feature Category">Target</td>
+                    <td data-label="Original Features">Subscription Status</td>
+                    <td data-label="Transformations Applied">Text→Binary encoding (yes=1, no=0)</td>
+                    <td data-label="Engineered Features">(Binary target variable)</td>
+                    <td data-label="Business Purpose">Model prediction target</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
